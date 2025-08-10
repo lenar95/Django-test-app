@@ -26,6 +26,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install paramiko
 
+      - name: Preflight check (secrets present)
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          DOMAIN: ${{ secrets.VPS_DOMAIN }}
+        run: |
+          set -e
+          [[ -n "$VPS_HOST" ]] || (echo "VPS_HOST is empty" && exit 1)
+          [[ -n "$VPS_USER" ]] || (echo "VPS_USER is empty" && exit 1)
+          [[ -n "$PASSWORD" ]] || (echo "VPS_PASSWORD is empty" && exit 1)
+          [[ -n "$DOMAIN" ]] || (echo "VPS_DOMAIN is empty" && exit 1)
+          echo "VPS_HOST=$VPS_HOST"
+          echo "VPS_USER=$VPS_USER"
+
       - name: Deploy via Paramiko script
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}

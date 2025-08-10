@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить анкету — Герои цифровой сказки{% endblock %}
+
+{% block content %}
+  <h2 style="margin-top:0;">Добавить анкету</h2>
+  <form method="post" enctype="multipart/form-data" style="max-width:700px;">
+    {% csrf_token %}
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <label>Имя<br>{{ form.name }}</label>
+      <label>Роль/заголовок<br>{{ form.title }}</label>
+      <label>Описание<br>{{ form.description }}</label>
+      <label>Аватар<br>{{ form.avatar }}</label>
+      <div>
+        <button class="card-content a-as-button" type="submit" style="padding:8px 12px; background:#0a4d8c; color:#fff; border:none; border-radius:4px; cursor:pointer;">Сохранить</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+

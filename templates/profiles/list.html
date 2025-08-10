@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Анкеты — Герои цифровой сказки{% endblock %}
+
+{% block content %}
+  <div class="tools" style="padding:0; margin-top:0;">
+    <input id="search" class="search-input" type="search" placeholder="Поиск анкет..." autocomplete="off">
+  </div>
+  <div class="cards">
+    {% for p in profiles %}
+      <div class="card" data-name="{{ p.name }}" data-tags="{{ p.title }} {{ p.description|truncatechars:60 }}">
+        <a href="#" style="text-decoration:none; color:inherit; display:block;">
+          {% if p.avatar %}
+            <img src="{{ p.avatar.url }}" alt="{{ p.name }}">
+          {% else %}
+            <img src="{% static 'img/placeholder.svg' %}" alt="{{ p.name }}">
+          {% endif %}
+          <div class="card-content">
+            <h2>{{ p.name }}</h2>
+            <p>{{ p.title }}</p>
+            <p>{{ p.description|truncatechars:180 }}</p>
+          </div>
+        </a>
+      </div>
+    {% empty %}
+      <p>Анкет пока нет. Нажмите «Добавить анкету», чтобы создать первую.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
